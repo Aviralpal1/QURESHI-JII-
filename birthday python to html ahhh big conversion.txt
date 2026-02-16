@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Royal Surprise 👑</title>
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:black;
+    font-family:Georgia;
+    text-align:center;
+    color:white;
+}
+.screen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+.hidden{display:none;}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:gold;
+    margin-top:20px;
+}
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+.fade-bg{
+    animation:fadebg 2s forwards;
+}
+@keyframes fadebg{
+    from{background:#ffe6f2;}
+    to{background:black;}
+}
+</style>
+</head>
+<body>
+
+<!-- WELCOME SCREEN -->
+<div id="welcome" class="screen">
+    <h1 style="font-size:50px;color:gold;">Welcome Malkin Jii 👑</h1>
+    <h2>Bihari Jii ❤️</h2>
+</div>
+
+<!-- CAKE SCREEN -->
+<div id="cake" class="screen hidden" style="background:#ffe6f2;color:black;">
+    <h1>Royal Rajma Chawal Cake 🎂</h1>
+    <div id="girl" style="font-size:120px;">👧</div>
+    <div id="cakeEmoji" style="font-size:120px;">🎂</div>
+    <button id="cutBtn">Cut Cake 🎂</button>
+    <button id="eatBtn" class="hidden">Eat Cake 🍰</button>
+</div>
+
+<!-- FINAL SCREEN -->
+<div id="final" class="screen hidden">
+    <h1 id="typewriter"></h1>
+</div>
+
+<script>
+
+// Popup
+setTimeout(()=>{
+    alert("my love ❤️");
+},2000);
+
+// Switch to cake scene
+setTimeout(()=>{
+    document.getElementById("welcome").classList.add("hidden");
+    document.getElementById("cake").classList.remove("hidden");
+    startHearts();
+    blinkGirl();
+},5000);
+
+// Floating Hearts
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"%";
+        document.body.appendChild(heart);
+        setTimeout(()=>{heart.remove();},6000);
+    },500);
+}
+
+// Blink animation
+function blinkGirl(){
+    setInterval(()=>{
+        document.getElementById("girl").innerHTML="😌";
+        setTimeout(()=>{
+            document.getElementById("girl").innerHTML="👧";
+        },200);
+    },3000);
+}
+
+// Cut Button
+document.getElementById("cutBtn").onclick=function(){
+    document.getElementById("cakeEmoji").innerHTML="🍰";
+    this.classList.add("hidden");
+    document.getElementById("eatBtn").classList.remove("hidden");
+}
+
+// Eat Button
+document.getElementById("eatBtn").onclick=function(){
+    document.getElementById("girl").innerHTML="😋";
+    document.getElementById("cake").classList.add("fade-bg");
+
+    setTimeout(()=>{
+        document.getElementById("cake").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+        typeWriter();
+    },2000);
+}
+
+// Typewriter Effect
+let message=`Thankyou for being huge part of my life
+I enjoyed every moment with you
+
+Khair jab kisi ki nazar lagg jaye
+to ache se ache bonds toot jaate hain
+
+And yes,
+Thanksalot ❤️
+Jazaak Allah
+Tysm
+
+I do love you a lot
+even if I don't show it.`;
+
+function typeWriter(){
+    let i=0;
+    let speed=40;
+    function typing(){
+        if(i<message.length){
+            document.getElementById("typewriter").innerHTML+=message.charAt(i);
+            i++;
+            setTimeout(typing,speed);
+        }else{
+            fireworks();
+        }
+    }
+    typing();
+}
+
+// Fireworks
+function fireworks(){
+    setInterval(()=>{
+        let spark=document.createElement("div");
+        spark.style.position="absolute";
+        spark.style.left=Math.random()*100+"%";
+        spark.style.top=Math.random()*100+"%";
+        spark.innerHTML="✨";
+        spark.style.fontSize="25px";
+        document.body.appendChild(spark);
+        setTimeout(()=>{spark.remove();},1000);
+    },300);
+}
+
+</script>
+
+</body>
+</html>
